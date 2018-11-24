@@ -28,8 +28,10 @@ def close_program(waited):
 
 def Live_Sketch(img):
     grayed = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-    canny_edged = cv2.Canny(grayed,30,100)
-    return canny_edged
+    blur_grayed = cv2.GaussianBlur(grayed,(5,5),0)
+    canny_edged = cv2.Canny(blur_grayed,20,70)
+    _,masked_canny_edged = cv2.threshold(canny_edged,70,255,cv2.THRESH_BINARY_INV)
+    return masked_canny_edged
 
     
 def main():
